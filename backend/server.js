@@ -4,12 +4,14 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-connectDB();
+connectDB(); // connect the DB
 
-app.use(cors());
-app.use(express.json()); // Body parser
+app.use(cors()); // middleware that enables CORS
+app.use(express.json()); // body parser
 
 app.get('/', (req, res) => res.send('API Running'));
+app.use('/api/auth', require('./routes/auth')); // auth routes will be under /api/auth
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
