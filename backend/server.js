@@ -11,6 +11,7 @@ app.use(express.json()); // body parser
 
 app.get('/', (req, res) => res.send('API Running'));
 app.use('/api/auth', require('./routes/auth')); // auth routes will be under /api/auth
+app.use('/api/test', require('./routes/test')); // tests the auth middleware, will delete later
 
 
 const PORT = process.env.PORT || 5000;
