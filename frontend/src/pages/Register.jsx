@@ -8,7 +8,7 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if(!email || ! username || !password || !confirmPassword) {
@@ -20,6 +20,29 @@ export default function Register() {
       alert('Passwords do not match.');
       return;
     }
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, username, password }),
+      });
+
+      const data = await response.json();
+
+      if(!response.ok) {
+        alert(data.message || 'Failed to Register at this time. Please try again later.');
+        return;
+      }
+
+      alert('Registration successful!');
+
+    } catch(error) {
+      console.error('Error registering:', error);
+      alert('Something went wrong. Try again.');
+    };
 
     console.log(`Successfully registered! Credentials are: ${email}, ${username}, ${password}, ${confirmPassword}.`);
   }
