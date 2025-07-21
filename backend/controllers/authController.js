@@ -33,10 +33,10 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-  const { email, password } = req.body; // get data from request body
+  const { username, password } = req.body; // get data from request body
 
   try {
-    const user = await User.findOne({ email }); // find a user with the given email
+    const user = await User.findOne({ username }); // find a user with the given username
     if (!user) {
       return res.status(400).json({ msg: 'Invalid credentials' }); // user does not exist
     }
