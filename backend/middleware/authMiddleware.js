@@ -4,7 +4,12 @@ const dotenv = require('dotenv');
 dotenv.config(); // give the parsed env file
 
 const authMiddleware = (req, res, next) => {
-    const token = req.header('Authorization'); // get the token from the header
+    const header = req.header('Authorization');
+    if (!header || !header.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'No token provided' });
+    }
+
+    const token = header.split(' ')[1];
 
     if (!token) { // if there isnt a token, dent access
     return res.status(401).json({ message: 'Authorization token is required.' });
