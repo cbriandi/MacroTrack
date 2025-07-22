@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoginButton from '../components/LogoutButton';
+import LogoutButton from '../components/LogoutButton';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -53,6 +55,7 @@ const Dashboard = () => {
     <div className="p-4">
       <h1 className="text-2xl font-bold">Welcome, {user.name}</h1>
       <p>Email: {user.email}</p>
+      <LogoutButton />
     </div>
   );
 };
