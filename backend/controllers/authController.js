@@ -49,16 +49,20 @@ exports.loginUser = async (req, res) => {
     const payload = { userId: user._id }; // make a jwt token
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.json({ 
-      token,
-      user: {
-        id: user._id,
-        username: user.username,
-        email: user.email
-      }
-     }); // respond with the token
+    res.json({ token }); // respond with the token
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
+  }
+};
+
+exports.getUser = async (req, res) => {
+  console.log('getting user');
+  try {
+    console.log(`Here is the user object sent to the backend: ${req.user}`)
+    const user = await User.findById(req.user.id).select('-password');
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'Server Error' });
   }
 };
