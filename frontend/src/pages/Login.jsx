@@ -1,10 +1,12 @@
 import { useState } from 'react'; 
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ export default function Login() {
       }
 
       alert('Login successful!');
+      navigate('/');
 
     } catch(error) {
       console.error('Error logging in:', error);
