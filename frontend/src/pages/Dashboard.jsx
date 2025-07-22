@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginButton from '../components/LogoutButton';
 import LogoutButton from '../components/LogoutButton';
 
 const Dashboard = () => {
