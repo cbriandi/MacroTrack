@@ -49,7 +49,14 @@ exports.loginUser = async (req, res) => {
     const payload = { userId: user._id }; // make a jwt token
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.json({ token }); // respond with the token
+    res.json({ 
+      token,
+      user: {
+        email: user.email,
+        username: user.username,
+        id: user._id
+      }
+    }); // respond with the token
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
